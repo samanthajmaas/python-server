@@ -1,0 +1,20 @@
+{
+    "indentRainbow.errorColor": "hex(#2E0219, #4A001F, #6A0F49, #A7C4C2)",
+    "indentRainbow.tabmixColor": "hex(#2E0219, #4A001F, #6A0F49, #A7C4C2)",
+    "indentRainbow.colors": [
+    
+        "RGBA(119,51,68,0.54)",
+        "RGBA(227,181,164,0.54)",
+        "RGBA(212,77,92,0.54)",
+        "RGBA(237,164,189,0.54)"
+    ],
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "Python Kennels",
+            "database": "kennel.db"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
