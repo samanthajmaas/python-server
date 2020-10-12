@@ -119,3 +119,28 @@ def update_employee(id, new_employee):
         if employee["id"] == id:
             EMPLOYEES[index] = new_employee
             break
+
+def get_employees_by_location(location_id):
+    with sqlite3.connect("./kennel.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        select
+            e.id,
+            e.name,
+            e.address,
+            e.location_id
+        from employee e
+        WHERE e.location_id = ?
+        """, ( location_id, ))
+
+        employees = []
+        data = db_cursor.fetchall()
+
+        for row in data:
+                # Create an customer instance from the current row
+                employee = Employee(row['id'], row['name'], row['address'], row['location_id'])
+                employees.append(employee.__dict__)
+        # Return the JSON serialized Customer object
+    return json.dumps(employees)

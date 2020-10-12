@@ -113,3 +113,59 @@ def update_animal(id, new_animal):
             # Found the animal. Update the value.
             ANIMALS[index] = new_animal
             break
+
+def get_animal_by_location(location_id):
+    with sqlite3.connect("./kennel.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        select
+            a.id,
+            a.name,
+            a.status,
+            a.breed,
+            a.location_id,
+            a.customer_id
+        from Animal a
+        WHERE a.location_id = ?
+        """, ( location_id, ))
+
+        animals = []
+        data = db_cursor.fetchall()
+
+        for row in data:
+                # Create an customer instance from the current row
+                animal = Animal(row['id'], row['name'], row['status'], row['breed'], 
+                                    row['location_id'], row['customer_id'])
+                animals.append(animal.__dict__)
+        # Return the JSON serialized Customer object
+    return json.dumps(animals)
+
+def get_animal_by_status(status):
+    with sqlite3.connect("./kennel.db") as conn:
+        conn.row_factory = sqlite3.Row
+        db_cursor = conn.cursor()
+
+        db_cursor.execute("""
+        select
+            a.id,
+            a.name,
+            a.status,
+            a.breed,
+            a.location_id,
+            a.customer_id
+        from Animal a
+        WHERE a.status = ?
+        """, ( status, ))
+
+        animals = []
+        data = db_cursor.fetchall()
+
+        for row in data:
+                # Create an customer instance from the current row
+                animal = Animal(row['id'], row['name'], row['status'], row['breed'], 
+                                    row['location_id'], row['customer_id'])
+                animals.append(animal.__dict__)
+        # Return the JSON serialized Customer object
+    return json.dumps(animals)
